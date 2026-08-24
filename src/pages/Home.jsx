@@ -9,6 +9,12 @@ const iconMap = { Smartphone, Laptop, Headphones, Cable, Gamepad2, Watch }
 
 export default function Home({ addToCart }) {
   const featured = products.slice(0, 8)
+  const heroProduct = products.find(p => p.id === 'iphone-17-pro-max') || featured[0]
+  const phoneOne = products.find(p => p.id === 'iphone-17') || heroProduct
+  const phoneTwo = products.find(p => p.id === 'samsung-galaxy-s26-ultra') || featured[1]
+  const audioPick = products.find(p => p.id === 'airpods-pro-3') || products.find(p => p.category === 'Audio')
+  const powerPick = products.find(p => p.id === 'anker-140w-adapter') || products.find(p => p.brand === 'Anker')
+
   return (
     <>
       <section className="hero">
@@ -21,11 +27,14 @@ export default function Home({ addToCart }) {
           <div className="hero-actions"><Link className="btn primary" to="/shop">Shop all tech <ArrowRight size={18}/></Link><Link className="btn ghost" to="/shop?category=Phones">Explore phones</Link></div>
           <div className="hero-trust"><span><BadgeCheck/> Verified products</span><span><ShieldCheck/> Warranty support</span><span><Truck/> Fast delivery</span></div>
         </motion.div>
-        <motion.div className="hero-device" initial={{opacity:0,scale:.9,rotate:4}} animate={{opacity:1,scale:1,rotate:0}} transition={{duration:.8,delay:.1}}>
+
+        <motion.div className="hero-device" initial={{opacity:0,scale:.9,rotate:2}} animate={{opacity:1,scale:1,rotate:0}} transition={{duration:.8,delay:.1}}>
           <div className="hero-chip">PLUGIFY PICK <b>NEW</b></div>
-          <ProductVisual type="phone" accent="#d5d5d5" />
-          <div className="floating-card fc1"><small>FLAGSHIP</small><strong>Pro-grade power</strong></div>
-          <div className="floating-card fc2"><small>DELIVERY</small><strong>Fast across Ghana</strong></div>
+          <Link to={`/product/${heroProduct.id}`} aria-label={heroProduct.name} style={{width:'100%',height:'100%',display:'block'}}>
+            <ProductVisual type={heroProduct.visual} accent={heroProduct.accent} image={heroProduct.image} alt={heroProduct.name} />
+          </Link>
+          <div className="floating-card fc1"><small>FLAGSHIP</small><strong>{heroProduct.name}</strong></div>
+          <div className="floating-card fc2"><small>FROM</small><strong>GH₵ {heroProduct.price.toLocaleString()}</strong></div>
         </motion.div>
         <div className="hero-index">01 <span>/ 04</span></div>
       </section>
@@ -48,11 +57,18 @@ export default function Home({ addToCart }) {
       <section className="editorial-duo section-wrap">
         <article className="feature-panel yellow-panel">
           <div className="feature-copy"><span className="eyebrow">PLUGIFY MOBILE</span><h2>Your next phone should feel like an upgrade.</h2><p>Flagship cameras, faster chips and devices built to stay useful long after unboxing.</p><Link to="/shop?category=Phones" className="btn black">Shop phones <ArrowRight size={17}/></Link></div>
-          <div className="feature-visual two-phones"><ProductVisual type="phone" accent="#181818"/><ProductVisual type="phone" accent="#e5e5e5"/></div>
+          <div className="feature-visual two-phones">
+            <Link to={`/product/${phoneOne.id}`} aria-label={phoneOne.name}><ProductVisual type={phoneOne.visual} accent={phoneOne.accent} image={phoneOne.image} alt={phoneOne.name}/></Link>
+            <Link to={`/product/${phoneTwo.id}`} aria-label={phoneTwo.name}><ProductVisual type={phoneTwo.visual} accent={phoneTwo.accent} image={phoneTwo.image} alt={phoneTwo.name}/></Link>
+          </div>
         </article>
+
         <article className="feature-panel black-panel">
           <div className="feature-copy"><span className="eyebrow yellow">SETUP ESSENTIALS</span><h2>Small gear. Massive difference.</h2><p>Power, audio and desk accessories selected to make your everyday setup cleaner and faster.</p><Link to="/shop?category=Accessories" className="btn ghost-light">Build your setup <ArrowRight size={17}/></Link></div>
-          <div className="feature-visual combo"><ProductVisual type="headphones" accent="#222"/><ProductVisual type="powerbank" accent="#111"/></div>
+          <div className="feature-visual combo">
+            {audioPick && <Link to={`/product/${audioPick.id}`} aria-label={audioPick.name}><ProductVisual type={audioPick.visual} accent={audioPick.accent} image={audioPick.image} alt={audioPick.name}/></Link>}
+            {powerPick && <Link to={`/product/${powerPick.id}`} aria-label={powerPick.name}><ProductVisual type={powerPick.visual} accent={powerPick.accent} image={powerPick.image} alt={powerPick.name}/></Link>}
+          </div>
         </article>
       </section>
 
