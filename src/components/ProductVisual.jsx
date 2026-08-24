@@ -1,4 +1,4 @@
-export default function ProductVisual({ type = 'phone', accent = '#d8d8d8', compact = false }) {
+export default function ProductVisual({ type = 'phone', accent = '#d8d8d8', compact = false, image, alt = '' }) {
   return (
     <div className={`product-visual visual-${type} ${compact ? 'compact' : ''}`} style={{ '--accent': accent }}>
       <div className="visual-glow" />
@@ -12,6 +12,13 @@ export default function ProductVisual({ type = 'phone', accent = '#d8d8d8', comp
       {type === 'keyboard' && <div className="keyboard-shell">{Array.from({length: 24}).map((_,i)=><span key={i}/>)}</div>}
       {type === 'controller' && <div className="controller-shell"><span className="stick s1"/><span className="stick s2"/><span className="pad"/><span className="buttons">••••</span></div>}
       {type === 'ssd' && <div className="ssd-shell"><span className="ssd-mark">T9</span></div>}
+      {image && <img
+        src={image}
+        alt={alt}
+        loading={compact ? 'lazy' : 'eager'}
+        onError={e => { e.currentTarget.style.display = 'none' }}
+        style={{ position:'absolute', inset: compact ? '8%' : '6%', width: compact ? '84%' : '88%', height: compact ? '84%' : '88%', objectFit:'contain', zIndex:2, filter:'drop-shadow(0 18px 22px rgba(0,0,0,.16))' }}
+      />}
     </div>
   )
 }
