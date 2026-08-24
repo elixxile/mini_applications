@@ -10,7 +10,7 @@ export default function CartDrawer({ open, items, close, changeQty, removeItem }
       <div className="cart-head"><div><span className="eyebrow">YOUR CART</span><h3>{items.length ? `${items.reduce((n,i)=>n+i.qty,0)} item${items.reduce((n,i)=>n+i.qty,0)>1?'s':''}` : 'Ready when you are'}</h3></div><button className="icon-btn" onClick={close}><X/></button></div>
       <div className="cart-body">
         {items.length === 0 ? <div className="empty-cart"><ShoppingBag size={34}/><h4>Your cart is empty.</h4><p>Find something worth plugging into your setup.</p><Link onClick={close} to="/shop" className="btn primary">Explore tech</Link></div> : items.map(item => <div className="cart-item" key={item.id}>
-          <div className="cart-thumb"><ProductVisual type={item.visual} accent={item.accent} compact/></div>
+          <div className="cart-thumb"><ProductVisual type={item.visual} accent={item.accent} image={item.image} alt={item.name} compact/></div>
           <div className="cart-item-copy"><div><span>{item.brand}</span><strong>{item.name}</strong></div><div className="qty-row"><div className="qty"><button onClick={()=>changeQty(item.id,-1)}><Minus/></button><span>{item.qty}</span><button onClick={()=>changeQty(item.id,1)}><Plus/></button></div><button className="remove" onClick={()=>removeItem(item.id)}>Remove</button></div></div>
           <strong className="cart-item-price">GH₵ {(item.price*item.qty).toLocaleString()}</strong>
         </div>)}
