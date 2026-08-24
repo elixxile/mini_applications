@@ -1,3 +1,4 @@
+// PLUGIFY layout — Render build compatibility verified
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { Search, ShoppingBag, Menu, X, UserRound, ChevronRight, Mail } from 'lucide-react'
