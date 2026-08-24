@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { Search, ShoppingBag, Menu, X, UserRound, ChevronRight, Instagram, Facebook, MessageCircle, Mail } from 'lucide-react'
+import { Search, ShoppingBag, Menu, X, UserRound, ChevronRight, Mail } from 'lucide-react'
 
 export default function Layout({ children, cartCount, onCartOpen, onSearch }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -62,7 +62,7 @@ export default function Layout({ children, cartCount, onCartOpen, onSearch }) {
           <div className="footer-brand"><Link to="/" className="brand"><img className="brand-lockup" src="/assets/plugify-lockup.svg" alt="PLUGIFY"/></Link><p>Premium tech. Seamless access. Limitless possibilities.</p></div>
           <div><h4>Shop</h4><Link to="/shop">All products</Link><Link to="/shop?category=Phones">Phones</Link><Link to="/shop?category=Laptops">Laptops</Link><Link to="/shop?category=Audio">Audio</Link></div>
           <div><h4>Help</h4><Link to="/support">Customer support</Link><Link to="/support#delivery">Delivery</Link><Link to="/support#warranty">Warranty</Link><Link to="/support#returns">Returns</Link></div>
-          <div><h4>Stay plugged in</h4><p>New drops, offers and tech worth knowing.</p><form className="newsletter" onSubmit={e=>e.preventDefault()}><input placeholder="Email address"/><button aria-label="Subscribe"><Mail size={18}/></button></form><div className="socials"><Instagram/><Facebook/><MessageCircle/></div></div>
+          <div><h4>Stay plugged in</h4><p>New drops, offers and tech worth knowing.</p><form className="newsletter" onSubmit={e=>e.preventDefault()}><input placeholder="Email address"/><button aria-label="Subscribe"><Mail size={18}/></button></form><div className="socials"><span>IG</span><span>FB</span><span>WA</span></div></div>
         </div>
         <div className="footer-bottom"><span>© {new Date().getFullYear()} PLUGIFY. All rights reserved.</span><div><Link to="/privacy">Privacy</Link><Link to="/terms">Terms</Link></div></div>
       </footer>
