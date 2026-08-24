@@ -1,0 +1,14 @@
+import { useState } from 'react'
+import { Check, LockKeyhole, ArrowRight } from 'lucide-react'
+import ProductVisual from '../components/ProductVisual'
+
+export default function Checkout({items,clearCart}){
+ const [done,setDone]=useState(false)
+ const subtotal=items.reduce((s,i)=>s+i.price*i.qty,0)
+ const delivery=items.length?60:0
+ const total=subtotal+delivery
+ const submit=e=>{e.preventDefault();setDone(true);clearCart()}
+ if(done) return <section className="section-wrap success-page"><div className="success-icon"><Check/></div><span className="eyebrow yellow">ORDER RECEIVED</span><h1>You’re plugged in.</h1><p>This prototype confirms the storefront flow. The next production step is connecting real orders, inventory and payment processing.</p><a className="btn primary" href="/">Back home</a></section>
+ if(!items.length) return <section className="section-wrap empty-page"><h1>No items to check out.</h1><a className="btn primary" href="/shop">Return to shop</a></section>
+ return <section className="checkout-page section-wrap"><div className="checkout-head"><div><span className="eyebrow yellow">SECURE CHECKOUT</span><h1>Finish your order.</h1></div><span><LockKeyhole/> Checkout prototype</span></div><div className="checkout-grid"><form className="checkout-form" onSubmit={submit}><section><h3>Contact</h3><div className="form-grid"><label className="span-2">Email address<input required type="email" placeholder="you@example.com"/></label><label>First name<input required/></label><label>Last name<input required/></label><label className="span-2">Phone number<input required placeholder="+233"/></label></div></section><section><h3>Delivery address</h3><div className="form-grid"><label className="span-2">Street / area<input required/></label><label>City<input required placeholder="Accra"/></label><label>Region<input required/></label><label className="span-2">Delivery note<input placeholder="Landmark, gate instructions, etc."/></label></div></section><section><h3>Payment</h3><div className="payment-placeholder"><LockKeyhole/><div><strong>Payment integration comes next</strong><p>Connect Paystack, Hubtel or another gateway after the storefront and backend are approved.</p></div></div></section><button className="btn primary full" type="submit">Place prototype order <ArrowRight/></button></form><aside className="checkout-summary"><h3>Your order</h3>{items.map(i=><div className="checkout-item" key={i.id}><div className="checkout-thumb"><ProductVisual type={i.visual} accent={i.accent} compact/><span>{i.qty}</span></div><div><strong>{i.name}</strong><small>{i.brand}</small></div><b>GH₵ {(i.price*i.qty).toLocaleString()}</b></div>)}<hr/><div><span>Subtotal</span><strong>GH₵ {subtotal.toLocaleString()}</strong></div><div><span>Delivery</span><strong>GH₵ {delivery.toLocaleString()}</strong></div><div className="grand"><span>Total</span><strong>GH₵ {total.toLocaleString()}</strong></div></aside></div></section>
+}
