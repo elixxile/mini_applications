@@ -1,194 +1,54 @@
-export const products = [
-  {
-    id: 'iphone-17-pro-max',
-    name: 'iPhone 17 Pro Max',
-    brand: 'Apple',
-    category: 'Phones',
-    price: 18499,
-    oldPrice: 19499,
-    rating: 4.9,
-    reviews: 216,
-    badge: 'Hot',
-    color: 'Graphite',
-    visual: 'phone',
-    accent: '#d8d8d8',
-    description: 'Flagship performance, pro camera control and a refined titanium build.',
-    specs: ['6.9-inch OLED display', 'Pro camera system', '256GB storage', '5G connectivity']
-  },
-  {
-    id: 'galaxy-s26-ultra',
-    name: 'Galaxy S26 Ultra',
-    brand: 'Samsung',
-    category: 'Phones',
-    price: 15999,
-    rating: 4.8,
-    reviews: 184,
-    badge: 'New',
-    color: 'Titanium Black',
-    visual: 'phone',
-    accent: '#444b55',
-    description: 'A powerful Android flagship built for productivity, imaging and all-day use.',
-    specs: ['AMOLED display', 'Advanced zoom camera', 'S Pen support', '5G connectivity']
-  },
-  {
-    id: 'macbook-air-m5',
-    name: 'MacBook Air M5',
-    brand: 'Apple',
-    category: 'Laptops',
-    price: 14999,
-    oldPrice: 15999,
-    rating: 4.9,
-    reviews: 142,
-    badge: 'Popular',
-    color: 'Midnight',
-    visual: 'laptop',
-    accent: '#7f8791',
-    description: 'Thin, quiet and fast — built for work, study and creative workflows.',
-    specs: ['Apple M5 chip', '13-inch Liquid Retina', '16GB unified memory', '512GB SSD']
-  },
-  {
-    id: 'rog-zephyrus-g16',
-    name: 'ROG Zephyrus G16',
-    brand: 'ASUS',
-    category: 'Laptops',
-    price: 22999,
-    rating: 4.8,
-    reviews: 96,
-    badge: 'Performance',
-    color: 'Eclipse Gray',
-    visual: 'laptop',
-    accent: '#81808d',
-    description: 'Portable high-performance gaming with a premium display and powerful graphics.',
-    specs: ['16-inch OLED', 'RTX graphics', '32GB memory', '1TB SSD']
-  },
-  {
-    id: 'airpods-pro-3',
-    name: 'AirPods Pro 3',
-    brand: 'Apple',
-    category: 'Audio',
-    price: 3199,
-    rating: 4.8,
-    reviews: 308,
-    badge: 'Bestseller',
-    color: 'White',
-    visual: 'earbuds',
-    accent: '#f1f1f1',
-    description: 'Immersive wireless audio with adaptive noise control and seamless pairing.',
-    specs: ['Active noise cancellation', 'Spatial audio', 'USB-C charging', 'Wireless charging case']
-  },
-  {
-    id: 'sony-wh-1000xm7',
-    name: 'Sony WH-1000XM7',
-    brand: 'Sony',
-    category: 'Audio',
-    price: 4299,
-    oldPrice: 4599,
-    rating: 4.9,
-    reviews: 251,
-    badge: 'Editor Pick',
-    color: 'Black',
-    visual: 'headphones',
-    accent: '#242424',
-    description: 'Premium over-ear headphones tuned for comfort, detail and focused listening.',
-    specs: ['Adaptive ANC', 'Hi-res audio', 'Multipoint Bluetooth', 'Long battery life']
-  },
-  {
-    id: 'apple-watch-ultra-3',
-    name: 'Apple Watch Ultra 3',
-    brand: 'Apple',
-    category: 'Wearables',
-    price: 8499,
-    rating: 4.7,
-    reviews: 128,
-    badge: 'New',
-    color: 'Natural Titanium',
-    visual: 'watch',
-    accent: '#b9b3a7',
-    description: 'A rugged smartwatch for fitness, outdoor use and everyday connectivity.',
-    specs: ['Titanium case', 'GPS + Cellular', 'Health sensors', 'Water resistant']
-  },
-  {
-    id: 'anker-prime-powerbank',
-    name: 'Anker Prime Power Bank',
-    brand: 'Anker',
-    category: 'Power',
-    price: 1499,
-    rating: 4.7,
-    reviews: 413,
-    badge: 'Essential',
-    color: 'Black',
-    visual: 'powerbank',
-    accent: '#282828',
-    description: 'High-capacity portable charging with fast USB-C output for phones and laptops.',
-    specs: ['20,000mAh capacity', 'Fast USB-C charging', 'Digital power display', 'Multi-device output']
-  },
-  {
-    id: 'logitech-mx-master-4',
-    name: 'Logitech MX Master 4',
-    brand: 'Logitech',
-    category: 'Accessories',
-    price: 1899,
-    rating: 4.8,
-    reviews: 277,
-    badge: 'Productivity',
-    color: 'Graphite',
-    visual: 'mouse',
-    accent: '#4a4a4a',
-    description: 'Precision productivity mouse with ergonomic controls and multi-device switching.',
-    specs: ['Ergonomic shape', 'MagSpeed wheel', 'Multi-device pairing', 'USB-C charging']
-  },
-  {
-    id: 'keychron-q1-max',
-    name: 'Keychron Q1 Max',
-    brand: 'Keychron',
-    category: 'Accessories',
-    price: 2499,
-    rating: 4.8,
-    reviews: 173,
-    badge: 'Creator Pick',
-    color: 'Carbon Black',
-    visual: 'keyboard',
-    accent: '#3a3a3a',
-    description: 'Premium mechanical keyboard with wireless freedom and a satisfying typing feel.',
-    specs: ['Mechanical switches', 'Wireless + wired', 'Hot-swappable', 'Mac & Windows support']
-  },
-  {
-    id: 'ps5-dualsense-edge',
-    name: 'DualSense Edge Controller',
-    brand: 'PlayStation',
-    category: 'Gaming',
-    price: 2799,
-    rating: 4.7,
-    reviews: 199,
-    badge: 'Gaming',
-    color: 'White / Black',
-    visual: 'controller',
-    accent: '#f0f0f0',
-    description: 'Customizable pro controller for competitive and immersive PlayStation sessions.',
-    specs: ['Remappable controls', 'Adjustable triggers', 'Replaceable stick modules', 'USB-C']
-  },
-  {
-    id: 'samsung-t9-2tb',
-    name: 'Samsung T9 Portable SSD 2TB',
-    brand: 'Samsung',
-    category: 'Storage',
-    price: 2999,
-    rating: 4.8,
-    reviews: 224,
-    badge: 'Fast',
-    color: 'Black',
-    visual: 'ssd',
-    accent: '#22252a',
-    description: 'Compact, rugged and fast portable storage for creators and everyday backups.',
-    specs: ['2TB capacity', 'USB 3.2 Gen 2x2', 'Portable design', 'Hardware encryption']
-  }
-]
+const PRICE_CHECKED = '2026-08-24'
+const SOURCE_NAME = 'Telefonika Ghana'
+
+const rows = [["samsung-galaxy-s26-ultra","Samsung Galaxy S26 Ultra","Samsung","Phones",14899,16400,true,"Sale","https://telefonika.com/cdn/shop/files/SM-S948_S26_ULTRA_12_256GB_00aa6530-fb47-4882-98c8-64b4628bed6f.png?v=1785632588&width=500"],["samsung-galaxy-a17","Samsung Galaxy A17","Samsung","Phones",2249,0,true,"","https://telefonika.com/cdn/shop/files/SAMSUNG_GALAXY_A17_4_128GB.png?v=1785459247&width=500"],["samsung-galaxy-a07-lte","Samsung Galaxy A07 LTE","Samsung","Phones",1499,0,true,"","https://telefonika.com/cdn/shop/files/SAMSUNG_GALAXY_A07_4_64GB.png?v=1785459247&width=500"],["tecno-spark-50","Tecno Spark 50","Tecno","Phones",1999,0,false,"","https://telefonika.com/cdn/shop/files/Spark50Black.jpg?v=1777932314&width=500"],["samsung-galaxy-s26","Samsung Galaxy S26","Samsung","Phones",10599,11599,false,"Sale","https://telefonika.com/cdn/shop/files/SM-S942_S26_12_256GB_bbddeb5a-5602-455a-9fe6-292aa1fc80c9.png?v=1785632588&width=500"],["iphone-17-pro-max","Apple iPhone 17 Pro Max","Apple","Phones",20990,0,true,"New","https://telefonika.com/cdn/shop/files/iPhone_17_Pro_Max_Deep_Blue.jpg?v=1772210609&width=500"],["huawei-nova-15-max","Huawei Nova 15 Max","Huawei","Phones",3999,0,false,"","https://telefonika.com/cdn/shop/files/1779994122479-Huawei-Nova-15-Max-5G-344.jpg?v=1780440066&width=500"],["redmi-a7","Xiaomi Redmi A7","Xiaomi","Phones",1215,0,false,"","https://telefonika.com/cdn/shop/files/RedmiA7black.jpg?v=1783639574&width=500"],["samsung-galaxy-a57","Samsung Galaxy A57","Samsung","Phones",6199,6499,false,"Sale","https://telefonika.com/cdn/shop/files/SAMSUNG_GALAXY_A57_8_256GB_44f7a204-a08c-43d7-bc72-52d4cbab407e.png?v=1785633486&width=500"],["samsung-galaxy-a26","Samsung Galaxy A26","Samsung","Phones",4299,0,false,"","https://telefonika.com/cdn/shop/files/SAMSUNG_GALAXY_A26_8_256GB.png?v=1785459674&width=500"],["iphone-17","Apple iPhone 17","Apple","Phones",12390,0,false,"","https://telefonika.com/cdn/shop/files/iPhone17Lavender.jpg?v=1769523309&width=500"],["samsung-galaxy-z-fold-7","Samsung Galaxy Z Fold 7","Samsung","Phones",19999,21499,true,"Sale","https://telefonika.com/cdn/shop/files/F966B_FOLD_7_12_256GB_c2d36449-9590-4b3b-8b43-15bba8737282.png?v=1785632946&width=500"],["redmi-a7-pro","Xiaomi Redmi A7 Pro","Xiaomi","Phones",1405,0,true,"","https://telefonika.com/cdn/shop/files/Xiaomi_Redmi_A7_Pro.jpg?v=1784679843&width=500"],["redmi-note-15-pro","Xiaomi Redmi Note 15 Pro","Xiaomi","Phones",3599,0,false,"","https://telefonika.com/cdn/shop/files/note15problack.jpg?v=1784247127&width=500"],["samsung-galaxy-s26-plus","Samsung Galaxy S26 Plus","Samsung","Phones",12799,13799,true,"Sale","https://telefonika.com/cdn/shop/files/SM-S947_S26_PLUS_12_256GB_ae563137-9108-44ef-a92f-57ed81e1eedb.png?v=1785632588&width=500"],["oppo-a6x","Oppo A6X","Oppo","Phones",1599,0,true,"","https://telefonika.com/cdn/shop/files/A6x.jpg?v=1784680267&width=500"],["redmi-15c","Xiaomi Redmi 15C","Xiaomi","Phones",1669,0,true,"","https://telefonika.com/cdn/shop/files/Redmi_15C.jpg?v=1772460819&width=500"],["infinix-hot-60i","Infinix Hot 60i","Infinix","Phones",1530,0,false,"","https://telefonika.com/cdn/shop/files/Hot60iBlue.jpg?v=1769522173&width=500"],["realme-c71","Realme C71","Realme","Phones",1319,0,true,"","https://telefonika.com/cdn/shop/files/RealmeC71.jpg?v=1769522526&width=500"],["huawei-nova-14i","Huawei Nova 14i","Huawei","Phones",3299,0,false,"","https://telefonika.com/cdn/shop/files/Nova_14i_Black.jpg?v=1773933104&width=500"],["tecno-pop-20","Tecno Pop 20","Tecno","Phones",1479,0,true,"","https://telefonika.com/cdn/shop/files/KN3Black.jpg?v=1773518120&width=500"],["huawei-nova-y63","Huawei Nova Y63","Huawei","Phones",1649,0,false,"","https://telefonika.com/cdn/shop/files/Huawei-Nova-Y63.jpg?v=1769524686&width=720"],["infinix-smart-20","Infinix Smart 20","Infinix","Phones",1399,0,true,"","https://telefonika.com/cdn/shop/files/Infinix-Smart-20Black.jpg?v=1774558339&width=500"],["iphone-14-pro-max","Apple iPhone 14 Pro Max 128GB","Apple","Phones",8990,0,false,"","https://telefonika.com/cdn/shop/files/iPhone-14-Pro-Max-DEEPPURPLE.jpg?v=1769522467&width=720"],["huawei-nova-y73","Huawei Nova Y73","Huawei","Phones",2599,0,false,"","https://telefonika.com/cdn/shop/files/Huawei-nova-y73.jpg?v=1773933248&width=600"],["realme-note-70","Realme Note 70","Realme","Phones",1350,1490,false,"Sale","https://telefonika.com/cdn/shop/files/REALMENOTE70_128_BK.jpg?v=1774385165&width=500"],["oppo-a6-pro","Oppo A6 Pro","Oppo","Phones",3990,0,false,"","https://telefonika.com/cdn/shop/files/OppoA6ProBlue.jpg?v=1771073145&width=500"],["iphone-17-air","Apple iPhone 17 Air","Apple","Phones",13900,0,true,"New","https://telefonika.com/cdn/shop/files/iPhone17AirBlack500.jpg?v=1770652787&width=500"],["oppo-reno-14f-5g","Oppo Reno 14F 5G","Oppo","Phones",4390,0,true,"","https://telefonika.com/cdn/shop/files/OPPOReno14F_12_512_G.jpg?v=1773836221&width=500"],["samsung-galaxy-a27-5g","Samsung Galaxy A27 5G","Samsung","Phones",3999,0,true,"","https://telefonika.com/cdn/shop/files/SAMSUNG_GALAXY_A27_6_128GB.png?v=1785459547&width=500"],["samsung-galaxy-a37","Samsung Galaxy A37","Samsung","Phones",5499,5799,false,"Sale","https://telefonika.com/cdn/shop/files/SAMSUNG_GALAXY_A37_8_256GB_79e27dce-f2b4-47fc-9eb4-7e606a090922.png?v=1785632886&width=500"],["realme-c75","Realme C75","Realme","Phones",2090,2390,false,"Sale","https://telefonika.com/cdn/shop/files/REALME_C75_8_256GB_SB.jpg?v=1772466717&width=500"],["oppo-reno13-f","Oppo Reno13 F","Oppo","Phones",3590,3790,true,"Sale","https://telefonika.com/cdn/shop/files/Oppo-Reno-13F.jpg?v=1773836305&width=720"],["samsung-galaxy-z-fold-6","Samsung Galaxy Z Fold 6","Samsung","Phones",16900,0,true,"","https://telefonika.com/cdn/shop/files/fold-6.jpg?v=1772706900&width=600"],["jbl-charge-6","JBL Charge 6","JBL","Audio",1990,2390,false,"Sale","https://telefonika.com/cdn/shop/files/JBL-CHARGE-6-BLACK.jpg?v=1772721739&width=720"],["jbl-tune-520bt","JBL Tune 520BT","JBL","Audio",490,0,false,"","https://telefonika.com/cdn/shop/files/JBL-Tune-520BT.jpg?v=1758045510&width=720"],["jbl-clip-5","JBL Clip 5","JBL","Audio",890,0,false,"","https://telefonika.com/cdn/shop/files/JBL_CLIP_5_WL_PINK.jpg?v=1772721826&width=500"],["jbl-tune-310c","JBL Tune 310C","JBL","Audio",240,0,true,"","https://telefonika.com/cdn/shop/files/JBLT310CWIREDBLACK.jpg?v=1762949823&width=500"],["jbl-flip-7","JBL Flip 7","JBL","Audio",1490,1890,false,"Sale","https://telefonika.com/cdn/shop/files/JBL-FLIP-7-BLACK.jpg?v=1772721949&width=720"],["jbl-t110","JBL T110 Wired Earphones","JBL","Audio",130,0,false,"","https://telefonika.com/cdn/shop/files/JBL-T110-Wired-Headphone.jpg?v=1758030011&width=300"],["jbl-tune-720","JBL Tune 720","JBL","Audio",790,0,false,"","https://telefonika.com/cdn/shop/files/JBL-Tune-720-Over-Ear-Wireless-Headphone.jpg?v=1772722973&width=720"],["jbl-tune-670nc","JBL Tune 670NC","JBL","Audio",1090,0,false,"","https://telefonika.com/cdn/shop/files/JBL_T670_OVER_EAR_BLK.jpg?v=1772722929&width=500"],["jbl-tune-730bt","JBL Tune 730BT","JBL","Audio",690,840,false,"Sale","https://telefonika.com/cdn/shop/files/JBLT730BTWLBLACK.jpg?v=1777119418&width=500"],["jbl-partybox-stage-320","JBL PartyBox Stage 320","JBL","Audio",7490,0,false,"","https://telefonika.com/cdn/shop/files/JBL-PartyBox-Stage-320-Speaker.jpg?v=1772037888&width=720"],["jbl-t770","JBL Tune 770","JBL","Audio",1190,0,false,"","https://telefonika.com/cdn/shop/files/JBL-T770-Over-Ear-Headphone.jpg?v=1758038337&width=720"],["jbl-tune-500","JBL Tune 500 Wired Headphones","JBL","Audio",350,0,false,"","https://telefonika.com/cdn/shop/files/JBL-Tune-500-Wired.jpg?v=1758045730&width=720"],["jbl-xtreme-4","JBL Xtreme 4","JBL","Audio",3490,3990,false,"Sale","https://telefonika.com/cdn/shop/files/JBL-XTREME-4-PORTABLE-WIRELESS-SPEAKER-BLACK.jpg?v=1758039946&width=720"],["jbl-partybox-club-120","JBL PartyBox Club 120","JBL","Audio",5490,0,false,"","https://telefonika.com/cdn/shop/files/JBL-PartyBox-Club-120.jpg?v=1772037864&width=720"],["jbl-live-670nc","JBL Live 670NC","JBL","Audio",1390,1590,false,"Sale","https://telefonika.com/cdn/shop/files/JBL-Live-670NC.jpg?v=1758017433&width=720"],["macbook-pro-m5-14","Apple MacBook Pro 14-inch M5","Apple","Laptops",22900,0,true,"New","https://telefonika.com/cdn/shop/files/mde14.jpg?v=1771523527&width=500"],["macbook-neo-13","Apple MacBook Neo 13-inch","Apple","Laptops",10900,0,true,"New","https://telefonika.com/cdn/shop/files/AppleMacbookNeo.jpg?v=1774992127&width=500"],["thinkpad-x1-yoga-gen8","Lenovo ThinkPad X1 Yoga Gen 8","Lenovo","Laptops",26900,0,false,"","https://telefonika.com/cdn/shop/files/Lenovo-ThinkPad-X1-Yoga-Gen-8-Intel-i7-1365U-vPro-Processor.jpg?v=1769524087&width=720"],["macbook-air-m4-13","Apple MacBook Air M4 13-inch","Apple","Laptops",19900,0,false,"","https://telefonika.com/cdn/shop/files/MC6U4.jpg?v=1773430925&width=500"],["viewsonic-omni-xg2705","ViewSonic OMNI XG2705 27-inch Gaming Monitor","ViewSonic","Monitors",6690,0,false,"","https://telefonika.com/cdn/shop/files/ViewSonic-OMNI-XG2705-27-Inch-1080p-1ms-144Hz-IPS-Gaming-Monitor.jpg?v=1769522649&width=720"],["apple-watch-series-11-46mm","Apple Watch Series 11 46mm","Apple","Wearables",6990,0,false,"","https://telefonika.com/cdn/shop/files/WATCH46mmS11MEV44.jpg?v=1771950579&width=500"],["ipad-pro-13-m4-cellular","Apple iPad Pro 13-inch M4 Cellular","Apple","Tablets",22900,0,true,"","https://telefonika.com/cdn/shop/files/Apple-iPad-Pro-13-Inch-M4.png?v=1771927459&width=720"],["apple-airtag","Apple AirTag","Apple","Accessories",650,0,false,"","https://telefonika.com/cdn/shop/files/Apple-AirTag.jpg?v=1757647019&width=720"],["airpods-pro-3","Apple AirPods Pro 3","Apple","Audio",3990,0,false,"","https://telefonika.com/cdn/shop/files/MFHP4.jpg?v=1772725332&width=500"],["anker-312-25w","Anker 312 Charger 25W","Anker","Accessories",260,0,false,"","https://telefonika.com/cdn/shop/files/Anker312Charger_25W_A2642K11-BLACK.jpg?v=1779313625&width=500"],["anker-140w-adapter","Anker 140W Power Adapter","Anker","Accessories",1390,0,false,"","https://telefonika.com/cdn/shop/files/Anker140wB2697.jpg?v=1769522237&width=500"],["anker-20w-2port-cable","Anker 20W 2-Port Charger + USB-C Cable","Anker","Accessories",190,0,false,"","https://telefonika.com/cdn/shop/files/Anker-20w-2-Port-B2348k21-High-Speed-Charger-with-USB-C-Cable.jpg?v=1758048779&width=720"],["anker-a2348-20w-wall","Anker A2348 20W Wall Charger","Anker","Accessories",290,0,false,"","https://telefonika.com/cdn/shop/files/Anker-20W-A2348-Wall-Charger-A2348K21-2-Ports-High-Speed-Charger-White.jpg?v=1769524145&width=720"],["anker-240w-usbc-cable","Anker 240W USB-C to USB-C Cable","Anker","Accessories",150,0,false,"","https://telefonika.com/cdn/shop/files/Anker-240W-Usb-C-to-USB-C-Cable-3.3ft-Black-A8060H11.jpg?v=1758049289&width=720"],["anker-3in1-magsafe-cube","Anker 3-in-1 Cube with MagSafe","Anker","Accessories",2590,0,false,"","https://telefonika.com/cdn/shop/files/Anker-3-in-1-Y1811KA1-Cube-with-MagSafe-B2B-Gray.jpg?v=1758016295&width=720"],["playstation-5-slim-1tb","PlayStation 5 Slim Console 1TB","PlayStation","Gaming",8290,0,false,"Popular","https://telefonika.com/cdn/shop/files/PlayStation_C2_AE5-Console-model-group-slim.jpg?v=1772461190&width=720"]]
+
+const visualByCategory = {
+  Phones: 'phone',
+  Laptops: 'laptop',
+  Audio: 'headphones',
+  Wearables: 'watch',
+  Accessories: 'powerbank',
+  Gaming: 'controller',
+  Tablets: 'phone',
+  Monitors: 'laptop'
+}
+
+const descriptionByCategory = {
+  Phones: 'Smartphone listing sourced from current Ghana retail pricing.',
+  Laptops: 'Laptop listing sourced from current Ghana retail pricing.',
+  Audio: 'Audio product listing sourced from current Ghana retail pricing.',
+  Wearables: 'Wearable tech listing sourced from current Ghana retail pricing.',
+  Accessories: 'Tech accessory listing sourced from current Ghana retail pricing.',
+  Gaming: 'Gaming product listing sourced from current Ghana retail pricing.',
+  Tablets: 'Tablet listing sourced from current Ghana retail pricing.',
+  Monitors: 'Display listing sourced from current Ghana retail pricing.'
+}
+
+export const products = rows.map(([id, name, brand, category, price, oldPrice, priceFrom, badge, image]) => ({
+  id,
+  name,
+  brand,
+  category,
+  price,
+  ...(oldPrice ? { oldPrice } : {}),
+  ...(priceFrom ? { priceFrom: true } : {}),
+  ...(badge ? { badge } : {}),
+  image,
+  visual: visualByCategory[category] || 'phone',
+  accent: '#f5c400',
+  color: 'As shown',
+  description: descriptionByCategory[category] || 'Current Ghana-market technology listing.',
+  specs: [],
+  sourceName: SOURCE_NAME,
+  priceChecked: PRICE_CHECKED
+}))
 
 export const categories = [
-  { name: 'Phones', icon: 'Smartphone', subtitle: 'Flagships & everyday phones' },
-  { name: 'Laptops', icon: 'Laptop', subtitle: 'Work, study & performance' },
-  { name: 'Audio', icon: 'Headphones', subtitle: 'Earbuds, speakers & headphones' },
-  { name: 'Accessories', icon: 'Cable', subtitle: 'Cables, cases, hubs & more' },
-  { name: 'Gaming', icon: 'Gamepad2', subtitle: 'Controllers & gaming gear' },
-  { name: 'Wearables', icon: 'Watch', subtitle: 'Smartwatches & fitness tech' }
+  {"name":"Phones","icon":"Smartphone","subtitle":"Flagships & everyday phones"},
+  {"name":"Laptops","icon":"Laptop","subtitle":"Work, study & performance"},
+  {"name":"Audio","icon":"Headphones","subtitle":"Earbuds, speakers & headphones"},
+  {"name":"Accessories","icon":"Cable","subtitle":"Chargers, cables & everyday gear"},
+  {"name":"Gaming","icon":"Gamepad2","subtitle":"Consoles & gaming gear"},
+  {"name":"Wearables","icon":"Watch","subtitle":"Smartwatches & wearable tech"}
 ]
