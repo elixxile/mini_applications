@@ -1,0 +1,2 @@
+import { Link } from 'react-router-dom'
+export default function StaticPage({title,children}){return <section className="section-wrap static-page"><span className="eyebrow yellow">PLUGIFY</span><h1>{title}</h1><div className="static-copy">{children || <><p>This page is part of the production-ready storefront structure and can be filled with final PLUGIFY policy or account content before launch.</p><Link className="text-link" to="/shop">Return to shop →</Link></>}</div></section>}
