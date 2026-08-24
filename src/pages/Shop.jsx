@@ -21,7 +21,7 @@ export default function Shop({ addToCart }) {
     }
     if (sort === 'low') data = [...data].sort((a,b)=>a.price-b.price)
     if (sort === 'high') data = [...data].sort((a,b)=>b.price-a.price)
-    if (sort === 'rating') data = [...data].sort((a,b)=>b.rating-a.rating)
+    if (sort === 'sale') data = [...data].sort((a,b)=>Number(Boolean(b.oldPrice))-Number(Boolean(a.oldPrice)))
     return data
   },[category, query, sort])
 
@@ -33,7 +33,7 @@ export default function Shop({ addToCart }) {
   }
 
   return <div className="shop-page">
-    <section className="shop-hero section-wrap"><span className="eyebrow yellow">PLUGIFY CATALOGUE</span><h1>Find the tech that fits.</h1><p>From flagship devices to the accessories that complete your setup.</p></section>
+    <section className="shop-hero section-wrap"><span className="eyebrow yellow">PLUGIFY CATALOGUE</span><h1>Find the tech that fits.</h1><p>Real devices and accessories with Ghana-market reference pricing, refreshed as the catalogue grows.</p></section>
     <section className="section-wrap shop-layout">
       <aside className="filters">
         <div className="filter-title"><SlidersHorizontal/><strong>Filters</strong></div>
@@ -44,7 +44,7 @@ export default function Shop({ addToCart }) {
         <div className="shop-toolbar">
           <div className="search-field"><Search/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search products..."/>{query&&<button onClick={()=>setQuery('')}><X/></button>}</div>
           <div className="result-count">{filtered.length} products</div>
-          <select value={sort} onChange={e=>setSort(e.target.value)}><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="rating">Top rated</option></select>
+          <select value={sort} onChange={e=>setSort(e.target.value)}><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="sale">Sale items first</option></select>
         </div>
         {filtered.length ? <div className="product-grid shop-grid">{filtered.map(p=><ProductCard key={p.id} product={p} addToCart={addToCart}/>)}</div> : <div className="no-results"><h3>No matching tech found.</h3><p>Try a different product name or category.</p></div>}
       </div>
