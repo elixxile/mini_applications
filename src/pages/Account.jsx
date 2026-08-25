@@ -11,7 +11,6 @@ export default function Account({ user }) {
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
   const [phone, setPhone] = useState('')
-  const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
@@ -21,7 +20,6 @@ export default function Account({ user }) {
     setEmail(user.email || '')
     supabase.from('profiles').select('full_name, phone').eq('id', user.id).maybeSingle().then(({ data }) => {
       if (data) {
-        setProfile(data)
         setFullName(data.full_name || '')
         setPhone(data.phone || '')
       }
@@ -34,6 +32,7 @@ export default function Account({ user }) {
   }, [fullName, user])
 
   const resetFeedback = () => { setError(''); setMessage('') }
+  const switchMode = next => { resetFeedback(); setPassword(''); setMode(next) }
 
   const submitAuth = async (e) => {
     e.preventDefault(); resetFeedback(); setLoading(true)
@@ -83,7 +82,7 @@ export default function Account({ user }) {
     e.preventDefault(); resetFeedback(); setLoading(true)
     const { error: profileError } = await supabase.from('profiles').upsert({ id: user.id, full_name: fullName, phone })
     if (profileError) setError(profileError.message)
-    else { setProfile({ full_name: fullName, phone }); setMessage('Profile updated.') }
+    else setMessage('Profile updated.')
     setLoading(false)
   }
 
@@ -119,20 +118,33 @@ export default function Account({ user }) {
         </div>
       </div>
       <div className="auth-card">
-        <div className="auth-tabs">
-          <button className={mode==='signin'?'active':''} onClick={()=>{resetFeedback();setMode('signin')}}>Sign in</button>
-          <button className={mode==='signup'?'active':''} onClick={()=>{resetFeedback();setMode('signup')}}>Create account</button>
-        </div>
-        <form onSubmit={submitAuth} className="account-form">
-          {mode === 'signup' && <label>Full name<input required value={fullName} onChange={e=>setFullName(e.target.value)} placeholder="Your name" /></label>}
-          <label>Email address<div className="input-with-icon"><Mail/><input required type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com" /></div></label>
-          <label>Password<div className="input-with-icon"><LockKeyhole/><input required minLength="8" type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="8+ characters" /></div></label>
-          {error && <div className="form-alert error">{error}</div>}
-          {message && <div className="form-alert success">{message}</div>}
-          <button disabled={loading} className="btn primary full">{loading ? 'Please wait…' : mode === 'signup' ? 'Create PLUGIFY account' : 'Sign in'}</button>
-        </form>
-        {mode === 'signin' && <button className="forgot-link" onClick={()=>{resetFeedback();setMode('forgot')}}>Forgot your password?</button>}
-        {mode === 'forgot' && <form onSubmit={sendReset} className="account-form reset-form"><label>Email address<input required type="email" value={email} onChange={e=>setEmail(e.target.value)} /></label><button disabled={loading} className="btn black full">Send reset link</button><button type="button" className="forgot-link" onClick={()=>setMode('signin')}>Back to sign in</button></form>}
+        {mode !== 'forgot' && <div className="auth-tabs">
+          <button className={mode==='signin'?'active':''} onClick={()=>switchMode('signin')}>Sign in</button>
+          <button className={mode==='signup'?'active':''} onClick={()=>switchMode('signup')}>Create account</button>
+        </div>}
+
+        {(mode === 'signin' || mode === 'signup') && <>
+          <form onSubmit={submitAuth} className="account-form">
+            {mode === 'signup' && <label>Full name<input required value={fullName} onChange={e=>setFullName(e.target.value)} placeholder="Your name" /></label>}
+            <label>Email address<div className="input-with-icon"><Mail/><input required type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com" /></div></label>
+            <label>Password<div className="input-with-icon"><LockKeyhole/><input required minLength="8" type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="8+ characters" /></div></label>
+            {error && <div className="form-alert error">{error}</div>}
+            {message && <div className="form-alert success">{message}</div>}
+            <button disabled={loading} className="btn primary full">{loading ? 'Please wait…' : mode === 'signup' ? 'Create PLUGIFY account' : 'Sign in'}</button>
+          </form>
+          {mode === 'signin' && <button className="forgot-link" onClick={()=>switchMode('forgot')}>Forgot your password?</button>}
+        </>}
+
+        {mode === 'forgot' && <>
+          <div className="auth-mark"><Mail/></div><span className="eyebrow yellow">PASSWORD RESET</span><h1 style={{fontSize:'42px'}}>Get back into your account.</h1>
+          <form onSubmit={sendReset} className="account-form reset-form">
+            <label>Email address<input required type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com" /></label>
+            {error && <div className="form-alert error">{error}</div>}
+            {message && <div className="form-alert success">{message}</div>}
+            <button disabled={loading} className="btn primary full">{loading ? 'Sending…' : 'Send reset link'}</button>
+            <button type="button" className="forgot-link" onClick={()=>switchMode('signin')}>Back to sign in</button>
+          </form>
+        </>}
       </div>
     </section>
   )
