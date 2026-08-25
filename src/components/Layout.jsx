@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { Search, ShoppingBag, Menu, X, UserRound, ChevronRight, Mail } from 'lucide-react'
 
-export default function Layout({ children, cartCount, onCartOpen, onSearch }) {
+export default function Layout({ children, cartCount, onCartOpen, onSearch, user, authReady }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -35,7 +35,7 @@ export default function Layout({ children, cartCount, onCartOpen, onSearch }) {
         </nav>
         <div className="nav-actions">
           <button className="icon-btn" onClick={() => setSearchOpen(v => !v)} aria-label="Search"><Search size={20}/></button>
-          <Link className="icon-btn desktop-only" to="/account" aria-label="Account"><UserRound size={20}/></Link>
+          <Link className="icon-btn desktop-only account-nav-icon" to="/account" aria-label={user ? `Account: ${user.email}` : 'Sign in'} title={user ? user.email : 'Sign in'}><UserRound size={20}/>{authReady && user && <i className="account-status-dot"/>}</Link>
           <button className="icon-btn cart-btn" onClick={onCartOpen} aria-label="Cart"><ShoppingBag size={20}/>{cartCount > 0 && <span>{cartCount}</span>}</button>
           <button className="icon-btn mobile-menu-btn" onClick={() => setMenuOpen(v => !v)} aria-label="Menu">{menuOpen ? <X size={21}/> : <Menu size={21}/>}</button>
         </div>
@@ -54,6 +54,7 @@ export default function Layout({ children, cartCount, onCartOpen, onSearch }) {
         <NavLink onClick={()=>setMenuOpen(false)} to="/shop?category=Audio">Audio <ChevronRight/></NavLink>
         <NavLink onClick={()=>setMenuOpen(false)} to="/shop?category=Accessories">Accessories <ChevronRight/></NavLink>
         <NavLink onClick={()=>setMenuOpen(false)} to="/support">Support <ChevronRight/></NavLink>
+        <NavLink onClick={()=>setMenuOpen(false)} to="/account">{user ? 'My account' : 'Sign in'} <ChevronRight/></NavLink>
       </div>}
 
       <main>{children}</main>
@@ -67,6 +68,7 @@ export default function Layout({ children, cartCount, onCartOpen, onSearch }) {
         </div>
         <div className="footer-bottom"><span>© {new Date().getFullYear()} PLUGIFY. All rights reserved.</span><div><Link to="/privacy">Privacy</Link><Link to="/terms">Terms</Link></div></div>
       </footer>
+      <style>{`.account-nav-icon{overflow:visible}.account-status-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:#ffd400;right:5px;bottom:5px;box-shadow:0 0 0 2px #050505}`}</style>
     </div>
   )
 }
