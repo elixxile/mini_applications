@@ -1,14 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
-import { CheckCircle2, LockKeyhole, LogOut, Mail, ShieldCheck, UserRound } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { CheckCircle2, KeyRound, LogOut, Mail, RefreshCcw, ShieldCheck, UserRound } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import '../account.css'
 
 export default function Account({ user }) {
-  const [params, setParams] = useSearchParams()
-  const [mode, setMode] = useState(params.get('recovery') === '1' ? 'recovery' : 'signin')
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [otp, setOtp] = useState('')
+  const [step, setStep] = useState('email')
   const [fullName, setFullName] = useState('')
   const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(false)
@@ -32,48 +31,45 @@ export default function Account({ user }) {
   }, [fullName, user])
 
   const resetFeedback = () => { setError(''); setMessage('') }
-  const switchMode = next => { resetFeedback(); setPassword(''); setMode(next) }
 
-  const submitAuth = async (e) => {
-    e.preventDefault(); resetFeedback(); setLoading(true)
-    try {
-      if (mode === 'signup') {
-        const { error: signUpError } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { data: { full_name: fullName }, emailRedirectTo: `${window.location.origin}/account` }
-        })
-        if (signUpError) throw signUpError
-        setMessage('Account created. Check your email if confirmation is required, then sign in.')
-        setMode('signin')
-      } else {
-        const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
-        if (signInError) throw signInError
-        setMessage('Welcome back to PLUGIFY.')
-      }
-    } catch (err) { setError(err.message || 'Authentication failed.') }
-    finally { setLoading(false) }
-  }
-
-  const sendReset = async (e) => {
-    e.preventDefault(); resetFeedback(); setLoading(true)
-    const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/account?recovery=1`
+  const sendOtp = async (e) => {
+    e?.preventDefault()
+    resetFeedback()
+    setLoading(true)
+    const normalizedEmail = email.trim().toLowerCase()
+    const { error: otpError } = await supabase.auth.signInWithOtp({
+      email: normalizedEmail,
+      options: { shouldCreateUser: true }
     })
-    if (resetError) setError(resetError.message)
-    else setMessage('Password reset link sent. Check your email.')
+    if (otpError) {
+      setError(otpError.message || 'We could not send your PLUGIFY code.')
+    } else {
+      setEmail(normalizedEmail)
+      setStep('otp')
+      setOtp('')
+      setMessage(`We sent a 6-digit PLUGIFY verification code to ${normalizedEmail}.`)
+    }
     setLoading(false)
   }
 
-  const updatePassword = async (e) => {
-    e.preventDefault(); resetFeedback(); setLoading(true)
-    const { error: updateError } = await supabase.auth.updateUser({ password })
-    if (updateError) setError(updateError.message)
+  const verifyOtp = async (e) => {
+    e.preventDefault()
+    resetFeedback()
+    const code = otp.replace(/\D/g, '').slice(0, 6)
+    if (code.length !== 6) {
+      setError('Enter the 6-digit code from your email.')
+      return
+    }
+    setLoading(true)
+    const { error: verifyError } = await supabase.auth.verifyOtp({
+      email: email.trim().toLowerCase(),
+      token: code,
+      type: 'email'
+    })
+    if (verifyError) setError('That code is invalid or has expired. Request a new one and try again.')
     else {
-      setMessage('Password updated successfully.')
-      setParams({}, { replace: true })
-      setMode('signin')
-      setPassword('')
+      setMessage('Verified. Welcome to PLUGIFY.')
+      setOtp('')
     }
     setLoading(false)
   }
@@ -88,62 +84,46 @@ export default function Account({ user }) {
 
   const signOut = async () => { await supabase.auth.signOut() }
 
-  if (mode === 'recovery') return (
-    <section className="account-shell section-wrap">
-      <div className="auth-card compact-auth">
-        <div className="auth-mark"><LockKeyhole /></div>
-        <span className="eyebrow yellow">SECURE ACCOUNT</span>
-        <h1>Choose a new password.</h1>
-        <p>Use at least 8 characters and avoid reusing a password from another service.</p>
-        <form onSubmit={updatePassword} className="account-form">
-          <label>New password<input required minLength="8" type="password" value={password} onChange={e=>setPassword(e.target.value)} /></label>
-          {error && <div className="form-alert error">{error}</div>}
-          {message && <div className="form-alert success">{message}</div>}
-          <button disabled={loading} className="btn primary full">{loading ? 'Updating…' : 'Update password'}</button>
-        </form>
-      </div>
-    </section>
-  )
-
   if (!user) return (
     <section className="account-shell section-wrap">
       <div className="account-intro">
         <span className="eyebrow yellow">PLUGIFY ACCOUNT</span>
-        <h1>Your tech. Your cart. Your account.</h1>
-        <p>Sign in to keep your cart synced across devices and make future checkout faster.</p>
+        <h1>Your tech. Your cart. One secure code.</h1>
+        <p>No password to remember. Enter your email and PLUGIFY sends a one-time verification code directly to your inbox.</p>
         <div className="account-benefits">
-          <span><ShieldCheck/> Secure Supabase authentication</span>
+          <span><ShieldCheck/> Secure passwordless sign-in</span>
           <span><CheckCircle2/> Cloud-synced shopping cart</span>
           <span><UserRound/> Saved customer profile</span>
         </div>
       </div>
+
       <div className="auth-card">
-        {mode !== 'forgot' && <div className="auth-tabs">
-          <button className={mode==='signin'?'active':''} onClick={()=>switchMode('signin')}>Sign in</button>
-          <button className={mode==='signup'?'active':''} onClick={()=>switchMode('signup')}>Create account</button>
-        </div>}
-
-        {(mode === 'signin' || mode === 'signup') && <>
-          <form onSubmit={submitAuth} className="account-form">
-            {mode === 'signup' && <label>Full name<input required value={fullName} onChange={e=>setFullName(e.target.value)} placeholder="Your name" /></label>}
-            <label>Email address<div className="input-with-icon"><Mail/><input required type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com" /></div></label>
-            <label>Password<div className="input-with-icon"><LockKeyhole/><input required minLength="8" type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="8+ characters" /></div></label>
+        {step === 'email' ? <>
+          <div className="auth-mark"><Mail /></div>
+          <span className="eyebrow yellow">EMAIL VERIFICATION</span>
+          <h2>Sign in or create your account.</h2>
+          <p>Enter your email. We’ll send a private 6-digit PLUGIFY code.</p>
+          <form onSubmit={sendOtp} className="account-form">
+            <label>Email address<div className="input-with-icon"><Mail/><input autoFocus required type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com" /></div></label>
             {error && <div className="form-alert error">{error}</div>}
             {message && <div className="form-alert success">{message}</div>}
-            <button disabled={loading} className="btn primary full">{loading ? 'Please wait…' : mode === 'signup' ? 'Create PLUGIFY account' : 'Sign in'}</button>
+            <button disabled={loading} className="btn primary full">{loading ? 'Sending code…' : 'Send verification code'}</button>
           </form>
-          {mode === 'signin' && <button className="forgot-link" onClick={()=>switchMode('forgot')}>Forgot your password?</button>}
-        </>}
-
-        {mode === 'forgot' && <>
-          <div className="auth-mark"><Mail/></div><span className="eyebrow yellow">PASSWORD RESET</span><h1 style={{fontSize:'42px'}}>Get back into your account.</h1>
-          <form onSubmit={sendReset} className="account-form reset-form">
-            <label>Email address<input required type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com" /></label>
+        </> : <>
+          <div className="auth-mark"><KeyRound /></div>
+          <span className="eyebrow yellow">CHECK YOUR EMAIL</span>
+          <h2>Enter your 6-digit code.</h2>
+          <p>We sent it to <strong>{email}</strong>. Keep this page open while you check your inbox.</p>
+          <form onSubmit={verifyOtp} className="account-form">
+            <label>Verification code<input className="otp-input" autoFocus required inputMode="numeric" autoComplete="one-time-code" maxLength="6" value={otp} onChange={e=>setOtp(e.target.value.replace(/\D/g,'').slice(0,6))} placeholder="000000" /></label>
             {error && <div className="form-alert error">{error}</div>}
             {message && <div className="form-alert success">{message}</div>}
-            <button disabled={loading} className="btn primary full">{loading ? 'Sending…' : 'Send reset link'}</button>
-            <button type="button" className="forgot-link" onClick={()=>switchMode('signin')}>Back to sign in</button>
+            <button disabled={loading || otp.length !== 6} className="btn primary full">{loading ? 'Verifying…' : 'Verify & continue'}</button>
           </form>
+          <div className="otp-actions">
+            <button disabled={loading} className="forgot-link" onClick={sendOtp}><RefreshCcw size={14}/> Resend code</button>
+            <button className="forgot-link" onClick={()=>{resetFeedback();setStep('email');setOtp('')}}>Use another email</button>
+          </div>
         </>}
       </div>
     </section>
@@ -153,24 +133,24 @@ export default function Account({ user }) {
     <section className="account-dashboard section-wrap">
       <div className="account-dashboard-head">
         <div className="profile-avatar">{initials}</div>
-        <div><span className="eyebrow yellow">SIGNED IN</span><h1>{fullName || 'Your PLUGIFY account'}</h1><p>{user.email}</p></div>
+        <div><span className="eyebrow yellow">VERIFIED CUSTOMER</span><h1>{fullName || 'Your PLUGIFY account'}</h1><p>{user.email}</p></div>
         <button className="btn account-logout" onClick={signOut}><LogOut size={17}/> Sign out</button>
       </div>
       <div className="account-panels">
         <form className="profile-panel" onSubmit={saveProfile}>
           <span className="eyebrow">CUSTOMER PROFILE</span><h2>Your details</h2>
           <div className="account-form two-col">
-            <label>Full name<input value={fullName} onChange={e=>setFullName(e.target.value)} /></label>
+            <label>Full name<input value={fullName} onChange={e=>setFullName(e.target.value)} placeholder="Your full name" /></label>
             <label>Phone number<input value={phone} onChange={e=>setPhone(e.target.value)} placeholder="+233" /></label>
-            <label className="span-2">Email<input disabled value={user.email || ''} /></label>
+            <label className="span-2">Verified email<input disabled value={user.email || ''} /></label>
           </div>
           {error && <div className="form-alert error">{error}</div>}
           {message && <div className="form-alert success">{message}</div>}
           <button disabled={loading} className="btn primary">Save profile</button>
         </form>
         <div className="account-side-panel">
-          <ShieldCheck size={30}/><span className="eyebrow yellow">ACCOUNT PROTECTION</span><h2>Secure by default.</h2>
-          <p>Your account and cart are protected by Supabase Auth and row-level security. Only you can access your customer data.</p>
+          <ShieldCheck size={30}/><span className="eyebrow yellow">ACCOUNT PROTECTION</span><h2>Passwordless by design.</h2>
+          <p>PLUGIFY verifies access with a one-time email code. Your profile and cart remain protected by Supabase Auth and row-level security.</p>
           <Link className="text-link" to="/cart">View your synced cart →</Link>
         </div>
       </div>
