@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, Check, Minus, Plus, ShieldCheck, Star, Truck, RotateCcw, ShoppingBag } from 'lucide-react'
 import { useState } from 'react'
-import { products } from '../data/products'
+import { products } from '../data/catalog'
 import ProductVisual from '../components/ProductVisual'
 import ProductCard from '../components/ProductCard'
 
