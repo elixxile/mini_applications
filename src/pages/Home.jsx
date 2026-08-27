@@ -8,12 +8,22 @@ import { categories, products } from '../data/catalog'
 const iconMap = { Smartphone, Laptop, Headphones, Cable, Gamepad2, Watch }
 
 export default function Home({ addToCart }) {
-  const featured = products.slice(0, 8)
-  const heroProduct = products.find(p => p.id === 'iphone-17-pro-max') || featured[0]
-  const phoneOne = products.find(p => p.id === 'iphone-17') || heroProduct
-  const phoneTwo = products.find(p => p.id === 'samsung-galaxy-s26-ultra') || featured[1]
-  const audioPick = products.find(p => p.id === 'airpods-pro-3') || products.find(p => p.category === 'Audio')
-  const powerPick = products.find(p => p.id === 'anker-140w-adapter') || products.find(p => p.brand === 'Anker')
+  const byId = id => products.find(p => p.id === id)
+  const featuredIds = [
+    'iphone-17-pro-max',
+    'samsung-galaxy-s26-ultra',
+    'tecno-spark-50',
+    'redmi-note-15-pro',
+    'jbl-charge-6',
+    'macbook-pro-m5-14',
+    'airpods-pro-3',
+    'playstation-5-slim-1tb'
+  ]
+  const featured = featuredIds.map(byId).filter(Boolean)
+  const heroProduct = byId('iphone-17-pro-max') || featured[0] || products[0]
+  const phoneOne = byId('iphone-17') || heroProduct
+  const phoneTwo = byId('iphone-17-pro-max') || heroProduct
+  const audioPick = byId('airpods-pro-3') || products.find(p => p.category === 'Audio')
 
   return (
     <>
@@ -57,7 +67,7 @@ export default function Home({ addToCart }) {
       <section className="editorial-duo section-wrap">
         <article className="feature-panel yellow-panel">
           <div className="feature-copy"><span className="eyebrow">PLUGIFY MOBILE</span><h2>Your next phone should feel like an upgrade.</h2><p>Flagship cameras, faster chips and devices built to stay useful long after unboxing.</p><Link to="/shop?category=Phones" className="btn black">Shop phones <ArrowRight size={17}/></Link></div>
-          <div className="feature-visual two-phones">
+          <div className="feature-visual two-phones clean-feature-products">
             <ProductVisual type={phoneOne.visual} accent={phoneOne.accent} image={phoneOne.image} alt={phoneOne.name}/>
             <ProductVisual type={phoneTwo.visual} accent={phoneTwo.accent} image={phoneTwo.image} alt={phoneTwo.name}/>
           </div>
@@ -65,9 +75,8 @@ export default function Home({ addToCart }) {
 
         <article className="feature-panel black-panel">
           <div className="feature-copy"><span className="eyebrow yellow">SETUP ESSENTIALS</span><h2>Small gear. Massive difference.</h2><p>Power, audio and desk accessories selected to make your everyday setup cleaner and faster.</p><Link to="/shop?category=Accessories" className="btn ghost-light">Build your setup <ArrowRight size={17}/></Link></div>
-          <div className="feature-visual combo">
+          <div className="feature-visual single-product-feature">
             {audioPick && <ProductVisual type={audioPick.visual} accent={audioPick.accent} image={audioPick.image} alt={audioPick.name}/>} 
-            {powerPick && <ProductVisual type={powerPick.visual} accent={powerPick.accent} image={powerPick.image} alt={powerPick.name}/>} 
           </div>
         </article>
       </section>
