@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import { productImageOverrides } from '../data/productImageOverrides'
 
 export default function ProductVisual({ type = 'phone', accent = '#d8d8d8', compact = false, image, alt = '' }) {
-  const [imageFailed, setImageFailed] = useState(false)
-  const useRealImage = Boolean(image && !imageFailed)
+  const [failedUrl, setFailedUrl] = useState('')
+  const resolvedImage = useMemo(() => productImageOverrides[alt] || image, [alt, image])
+  const useRealImage = Boolean(resolvedImage && resolvedImage !== failedUrl)
 
   return (
     <div className={`product-visual visual-${type} ${compact ? 'compact' : ''} ${useRealImage ? 'has-real-image' : ''}`} style={{ '--accent': accent }}>
@@ -22,20 +24,12 @@ export default function ProductVisual({ type = 'phone', accent = '#d8d8d8', comp
       </>}
 
       {useRealImage && <img
-        src={image}
+        className="real-product-image"
+        src={resolvedImage}
         alt={alt}
         loading={compact ? 'lazy' : 'eager'}
         decoding="async"
-        onError={() => setImageFailed(true)}
-        style={{
-          position:'absolute',
-          inset: compact ? '8%' : '4%',
-          width: compact ? '84%' : '92%',
-          height: compact ? '84%' : '92%',
-          objectFit:'contain',
-          zIndex:2,
-          filter:'drop-shadow(0 22px 28px rgba(0,0,0,.22))'
-        }}
+        onError={() => setFailedUrl(resolvedImage)}
       />}
     </div>
   )
