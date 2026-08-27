@@ -5,6 +5,7 @@ import App from './App'
 import './styles.css'
 import './responsive.css'
 import './mobile-fixes.css'
+import './product-images.css'
 
 try {
   const redirect = sessionStorage.getItem('plugify-spa-redirect')
