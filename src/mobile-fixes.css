@@ -6,6 +6,37 @@
   .account-shell{grid-template-columns:1fr!important;gap:30px!important}
   .account-intro{max-width:680px}
   .auth-card{width:100%;max-width:620px}
+
+  /* Keep the PLUGIFY Standard mark as a brand accent, not a separate poster. */
+  .brand-story{
+    display:block!important;
+    background:#050505!important;
+    color:#fff!important;
+    border-radius:24px!important;
+    padding:42px!important;
+    margin-top:56px!important;
+    margin-bottom:56px!important;
+  }
+  .brand-story-logo{
+    height:auto!important;
+    width:auto!important;
+    max-width:none!important;
+    background:transparent!important;
+    border-radius:0!important;
+    display:block!important;
+    margin:0 0 24px!important;
+  }
+  .brand-story-logo img{
+    display:block!important;
+    width:78px!important;
+    height:78px!important;
+    object-fit:contain!important;
+  }
+  .brand-story>div:last-child{
+    background:transparent!important;
+    padding:0!important;
+    border-radius:0!important;
+  }
 }
 
 @media (max-width:620px){
@@ -29,4 +60,16 @@
   .account-dashboard-head p{overflow-wrap:anywhere}
   .account-logout{grid-column:1/-1!important;width:100%!important}
   .profile-panel,.account-side-panel{min-width:0}
+
+  .brand-story{
+    width:calc(100% - 28px)!important;
+    padding:28px 24px!important;
+    border-radius:20px!important;
+    margin-top:42px!important;
+    margin-bottom:42px!important;
+  }
+  .brand-story-logo{margin-bottom:18px!important}
+  .brand-story-logo img{width:58px!important;height:58px!important}
+  .brand-story h2{font-size:34px!important;line-height:1.04!important}
+  .brand-story p{font-size:12px!important;line-height:1.65!important}
 }
