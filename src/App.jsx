@@ -10,7 +10,7 @@ import CartPage from './pages/CartPage'
 import Checkout from './pages/Checkout'
 import Account from './pages/Account'
 import StaticPage from './pages/StaticPage'
-import { products } from './data/products'
+import { products } from './data/catalog'
 import { supabase } from './lib/supabase'
 
 const GUEST_CART_KEY = 'plugify-cart'
