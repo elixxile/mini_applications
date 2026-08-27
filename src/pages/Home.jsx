@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, BadgeCheck, Headphones, Laptop, Smartphone, Cable, Gamepad2, Watch, ShieldCheck, Truck, Zap, RotateCcw } from 'lucide-react'
 import ProductVisual from '../components/ProductVisual'
 import ProductCard from '../components/ProductCard'
-import { categories, products } from '../data/products'
+import { categories, products } from '../data/catalog'
 
 const iconMap = { Smartphone, Laptop, Headphones, Cable, Gamepad2, Watch }
 
