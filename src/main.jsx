@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './styles.css'
 import './responsive.css'
+import './mobile-fixes.css'
 
 try {
   const redirect = sessionStorage.getItem('plugify-spa-redirect')
